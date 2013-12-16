@@ -1,0 +1,16 @@
+abc
+--Ta linia i następne zostaną zignorowane--
+
+A    hmm
+AM   hmm/hmm_test.class
+AM   hmm/HMM.class
+A    hmm/crazysoda.seq
+A    hmm/soda.java
+A    hmm/bw.java
+A    hmm/bw1.java
+AM   hmm/soda.class
+AM   hmm/bw.class
+AM   hmm/bw1.class
+A    hmm/crazysoda wunsch.seq
+A    hmm/hmm_test.java
+A    hmm/HMM.java

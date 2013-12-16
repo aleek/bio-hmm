@@ -1,0 +1,323 @@
+Dynamic.java:25: error: package be.ac.ulg.montefiore.run.jahmm does not exist
+import be.ac.ulg.montefiore.run.jahmm.*;
+^
+Dynamic.java:26: error: package be.ac.ulg.montefiore.run.jahmm does not exist
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+                                     ^
+Dynamic.java:27: error: package be.ac.ulg.montefiore.run.jahmm does not exist
+import be.ac.ulg.montefiore.run.jahmm.ViterbiCalculator;
+                                     ^
+Dynamic.java:28: error: package be.ac.ulg.montefiore.run.jahmm does not exist
+import be.ac.ulg.montefiore.run.jahmm.ObservationVector;
+                                     ^
+Dynamic.java:29: error: package be.ac.ulg.montefiore.run.jahmm does not exist
+import be.ac.ulg.montefiore.run.jahmm.OpdfMultiGaussian;
+                                     ^
+Dynamic.java:30: error: package be.ac.ulg.montefiore.run.jahmm.draw does not exist
+import be.ac.ulg.montefiore.run.jahmm.draw.GenericHmmDrawerDot;
+                                          ^
+Dynamic.java:32: error: package be.ac.ulg.montefiore.run.jahmm.toolbox does not exist
+import be.ac.ulg.montefiore.run.jahmm.toolbox.KullbackLeiblerDistanceCalculator;
+                                             ^
+Dynamic.java:33: error: package be.ac.ulg.montefiore.run.jahmm.toolbox does not exist
+import be.ac.ulg.montefiore.run.jahmm.toolbox.MarkovGenerator;
+                                             ^
+Dynamic.java:35: error: package weka.core does not exist
+import weka.core.*;
+^
+BaumWelchLearner.java:27: error: package be.ac.ulg.montefiore.run.jahmm does not exist
+import be.ac.ulg.montefiore.run.jahmm.*;
+^
+BaumWelchLearner.java:28: error: cannot find symbol
+import DynamicHmm.KMeansLearner;
+                 ^
+  symbol:   class KMeansLearner
+  location: package DynamicHmm
+BaumWelchLearner.java:34: error: cannot find symbol
+public class BaumWelchLearner<O extends Observation, D extends Opdf<O>> {
+                                        ^
+  symbol: class Observation
+BaumWelchLearner.java:34: error: cannot find symbol
+public class BaumWelchLearner<O extends Observation, D extends Opdf<O>> {
+                                                               ^
+  symbol: class Opdf
+BaumWelchLearner.java:41: error: cannot find symbol
+	protected OpdfFactory<? extends D> opdfFactory;
+	          ^
+  symbol:   class OpdfFactory
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:57: error: cannot find symbol
+	public BaumWelchLearner(OpdfFactory<? extends D> opdfFactory,
+	                        ^
+  symbol:   class OpdfFactory
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:76: error: cannot find symbol
+	public Hmm<O,D> iterate(Hmm<O,?> hmm) {
+	                        ^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:76: error: cannot find symbol
+	public Hmm<O,D> iterate(Hmm<O,?> hmm) {
+	       ^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:171: error: cannot find symbol
+			Hmm<O,?> hmm) {
+			^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:168: error: cannot find symbol
+	protected ForwardBackwardCalculator
+	          ^
+  symbol:   class ForwardBackwardCalculator
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:187: error: cannot find symbol
+	public Hmm<O,D> learn(Hmm<O,?> initialHmm) {
+	                      ^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:187: error: cannot find symbol
+	public Hmm<O,D> learn(Hmm<O,?> initialHmm) {
+	       ^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:198: error: cannot find symbol
+			ForwardBackwardCalculator fbc, Hmm<O,?> hmm) {
+			^
+  symbol:   class ForwardBackwardCalculator
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:198: error: cannot find symbol
+			ForwardBackwardCalculator fbc, Hmm<O,?> hmm) {
+			                               ^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:232: error: cannot find symbol
+			ForwardBackwardCalculator fbc) {
+			^
+  symbol:   class ForwardBackwardCalculator
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+Dynamic.java:48: error: cannot find symbol
+        Instances instances;//, secondInstances, train, test, transformed, empty;
+        ^
+  symbol:   class Instances
+  location: class Dynamic
+Dynamic.java:78: error: cannot find symbol
+            instances = new Instances(reader);
+                            ^
+  symbol:   class Instances
+  location: class Dynamic
+Dynamic.java:93: error: cannot find symbol
+                ObservationVector sequence = new ObservationVector(vec);
+                ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:93: error: cannot find symbol
+                ObservationVector sequence = new ObservationVector(vec);
+                                                 ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:110: error: cannot find symbol
+            ObservationVector obs = new ObservationVector(8);
+            ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:110: error: cannot find symbol
+            ObservationVector obs = new ObservationVector(8);
+                                        ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:117: error: cannot find symbol
+            Hmm<ObservationVector, OpdfMultiGaussian> wekaHmm = 
+            ^
+  symbol:   class Hmm
+  location: class Dynamic
+Dynamic.java:117: error: cannot find symbol
+            Hmm<ObservationVector, OpdfMultiGaussian> wekaHmm = 
+                ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:117: error: cannot find symbol
+            Hmm<ObservationVector, OpdfMultiGaussian> wekaHmm = 
+                                   ^
+  symbol:   class OpdfMultiGaussian
+  location: class Dynamic
+Dynamic.java:118: error: cannot find symbol
+                        new Hmm<ObservationVector, OpdfMultiGaussian>(arbitrary,
+                            ^
+  symbol:   class Hmm
+  location: class Dynamic
+Dynamic.java:118: error: cannot find symbol
+                        new Hmm<ObservationVector, OpdfMultiGaussian>(arbitrary,
+                                ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:118: error: cannot find symbol
+                        new Hmm<ObservationVector, OpdfMultiGaussian>(arbitrary,
+                                                   ^
+  symbol:   class OpdfMultiGaussian
+  location: class Dynamic
+Dynamic.java:119: error: cannot find symbol
+                            new OpdfMultiGaussianFactory(8));
+                                ^
+  symbol:   class OpdfMultiGaussianFactory
+  location: class Dynamic
+Dynamic.java:122: error: cannot find symbol
+             Hmm<ObservationVector,  ?> learntHmm = 
+             ^
+  symbol:   class Hmm
+  location: class Dynamic
+Dynamic.java:122: error: cannot find symbol
+             Hmm<ObservationVector,  ?> learntHmm = 
+                 ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:123: error: cannot find symbol
+                        new Hmm<ObservationVector, OpdfMultiGaussian>(arbitrary,
+                            ^
+  symbol:   class Hmm
+  location: class Dynamic
+Dynamic.java:123: error: cannot find symbol
+                        new Hmm<ObservationVector, OpdfMultiGaussian>(arbitrary,
+                                ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:123: error: cannot find symbol
+                        new Hmm<ObservationVector, OpdfMultiGaussian>(arbitrary,
+                                                   ^
+  symbol:   class OpdfMultiGaussian
+  location: class Dynamic
+Dynamic.java:124: error: cannot find symbol
+                            new OpdfMultiGaussianFactory(8));
+                                ^
+  symbol:   class OpdfMultiGaussianFactory
+  location: class Dynamic
+Dynamic.java:128: error: cannot find symbol
+            BaumWelchLearner<ObservationVector,OpdfMultiGaussian> bwl =
+                             ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:128: error: cannot find symbol
+            BaumWelchLearner<ObservationVector,OpdfMultiGaussian> bwl =
+                                               ^
+  symbol:   class OpdfMultiGaussian
+  location: class Dynamic
+Dynamic.java:129: error: cannot find symbol
+			new BaumWelchLearner<ObservationVector,
+			                     ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:130: error: cannot find symbol
+                            OpdfMultiGaussian>(new OpdfMultiGaussianFactory(8),seqOfSeq);
+                            ^
+  symbol:   class OpdfMultiGaussian
+  location: class Dynamic
+Dynamic.java:130: error: cannot find symbol
+                            OpdfMultiGaussian>(new OpdfMultiGaussianFactory(8),seqOfSeq);
+                                                   ^
+  symbol:   class OpdfMultiGaussianFactory
+  location: class Dynamic
+Dynamic.java:153: error: cannot find symbol
+            ViterbiCalculator<ObservationVector> viterbi = 
+            ^
+  symbol:   class ViterbiCalculator
+  location: class Dynamic
+Dynamic.java:153: error: cannot find symbol
+            ViterbiCalculator<ObservationVector> viterbi = 
+                              ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+Dynamic.java:154: error: cannot find symbol
+                    new ViterbiCalculator<ObservationVector>(seqOfSeq,wekaHmm); 
+                        ^
+  symbol:   class ViterbiCalculator
+  location: class Dynamic
+Dynamic.java:154: error: cannot find symbol
+                    new ViterbiCalculator<ObservationVector>(seqOfSeq,wekaHmm); 
+                                          ^
+  symbol:   class ObservationVector
+  location: class Dynamic
+BaumWelchLearner.java:78: error: cannot find symbol
+		Hmm<O,D> nhmm = new Hmm<O,D>(hmm.nbStates(), opdfFactory);
+		^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:78: error: cannot find symbol
+		Hmm<O,D> nhmm = new Hmm<O,D>(hmm.nbStates(), opdfFactory);
+		                    ^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:98: error: cannot find symbol
+			ForwardBackwardCalculator fbc = 
+			^
+  symbol:   class ForwardBackwardCalculator
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:141: error: cannot find symbol
+                        ArrayList observations = KMeansLearner.flat(sequences);
+                                                 ^
+  symbol:   variable KMeansLearner
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:173: error: cannot find symbol
+		return new ForwardBackwardCalculator(sequence, hmm, 
+		           ^
+  symbol:   class ForwardBackwardCalculator
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+BaumWelchLearner.java:174: error: package ForwardBackwardCalculator does not exist
+				EnumSet.allOf(ForwardBackwardCalculator.Computation.class));
+				                                       ^
+BaumWelchLearner.java:188: error: cannot find symbol
+		Hmm<O,D> hmm = iterate(initialHmm);
+		^
+  symbol:   class Hmm
+  location: class BaumWelchLearner<O,D>
+  where O,D are type-variables:
+    O declared in class BaumWelchLearner
+    D declared in class BaumWelchLearner
+59 errors
