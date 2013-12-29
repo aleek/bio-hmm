@@ -1,36 +1,31 @@
+package javaapplication2;
+
 import java.text.*;
 
-/** This class implements a Hidden Markov Model, as well as
-    the Baum-Welch Algorithm for training HMMs.
-    @author Holger Wunsch (wunsch@sfs.nphil.uni-tuebingen.de) 
-*/
 public class HMM {
-  /* number of states */
-  public int numStates;
-
-  /* size of output vocabulary */
-  public int sigmaSize;
-
-  /* initial state probabilities */
-  public double pi[];
-
-  /* transition probabilities */
-  public double a[][];
-
-  /* emission probabilities */
-  public double b[][];
+    
+  private int numberOfStates;
+  private int emisionSize;
+  private double likehoodSetByUser;
+  private double likehoodCalculated;
+  
+  private double initialStateProb[];
+  private double transitionProb[][];
+  private double emissionProb[][];
 
   /* initializes an HMM.
-      @param numStates number of states
-      @param sigmaSize size of output vocabulary 
+      @param numberOfStates number of states
+      @param numberOfIterationsTrain size of output vocabulary 
   */
-  public HMM(int numStates, int sigmaSize) {
-    this.numStates = numStates;
-    this.sigmaSize = sigmaSize;
-
-    pi = new double[numStates];
-    a = new double[numStates][numStates];
-    b = new double[numStates][sigmaSize];
+  public HMM(int numberOfStates, int emisionSize, double likehood) {
+    this.numberOfStates = numberOfStates;
+    this.emisionSize = emisionSize;
+    this.likehoodSetByUser = likehood;
+    this.likehoodCalculated = likehood;
+    
+    this.initialStateProb = new double[numberOfStates];
+    this.transitionProb = new double[numberOfStates][numberOfStates];
+    this.emissionProb = new double[numberOfStates][emisionSize];
   }
 
   /** implementation of the Baum-Welch Algorithm for HMMs.
@@ -42,9 +37,9 @@ public class HMM {
     double[][] fwd;
     double[][] bwd;
 
-    double pi1[] = new double[numStates];
-    double a1[][] = new double[numStates][numStates];
-    double b1[][] = new double[numStates][sigmaSize];
+    double newInitialStateProb[] = new double[numberOfStates];
+    double newTransitionProb[][] = new double[numberOfStates][numberOfStates];
+    double newEmissionProb[][] = new double[numberOfStates][emisionSize];
 
     for (int s = 0; s < steps; s++) {
       /* calculation of Forward- und Backward Variables from the
@@ -53,25 +48,25 @@ public class HMM {
       bwd = backwardProc(o);
 
       /* re-estimation of initial state probabilities */
-      for (int i = 0; i < numStates; i++)
-	pi1[i] = gamma(i, 0, o, fwd, bwd);
+      for (int i = 0; i < numberOfStates; i++)
+	newInitialStateProb[i] = gamma(i, 0, o, fwd, bwd);
 
       /* re-estimation of transition probabilities */ 
-      for (int i = 0; i < numStates; i++) {
-	for (int j = 0; j < numStates; j++) {
+      for (int i = 0; i < numberOfStates; i++) {
+	for (int j = 0; j < numberOfStates; j++) {
 	  double num = 0;
 	  double denom = 0;
 	  for (int t = 0; t <= T - 1; t++) {
 	    num += p(t, i, j, o, fwd, bwd);
 	    denom += gamma(i, t, o, fwd, bwd);
 	  }
-	  a1[i][j] = divide(num, denom);
+	  newTransitionProb[i][j] = divide(num, denom);
 	}
       }
       
       /* re-estimation of emission probabilities */
-      for (int i = 0; i < numStates; i++) {
-	for (int k = 0; k < sigmaSize; k++) {
+      for (int i = 0; i < numberOfStates; i++) {
+	for (int k = 0; k < emisionSize; k++) {
 	  double num = 0;
 	  double denom = 0;
 	  
@@ -80,12 +75,14 @@ public class HMM {
 	    num += g * (k == o[t] ? 1 : 0);
 	    denom += g;
 	  }
-	  b1[i][k] = divide(num, denom);
+	  newEmissionProb[i][k] = divide(num, denom);
 	}
       }
-      pi = pi1;
-      a = a1;
-      b = b1;
+      this.initialStateProb = newInitialStateProb;
+      this.transitionProb = newTransitionProb;
+      this.emissionProb = newEmissionProb;
+      
+      calculateLikehood();
     }
   }
   
@@ -96,47 +93,54 @@ public class HMM {
       @return an array f(i,t) over states and times, containing
               the Forward-variables. 
   */
-  public double[][] forwardProc(int[] o) {
-    int T = o.length;
-    double[][] fwd = new double[numStates][T];
+  public double[][] forwardProc(int[] observateSequence) {
+    int T = observateSequence.length;
+    double[] pi = this.initialStateProb;
+    double[][] a = this.transitionProb;
+    double[][] b = this.emissionProb;
+    double[][] fwd = new double[numberOfStates][T];
         
     /* initialization (time 0) */
-    for (int i = 0; i < numStates; i++)
-      fwd[i][0] = pi[i] * b[i][o[0]];
+    for (int i = 0; i < numberOfStates; i++)
+      fwd[i][0] = pi[i] * b[i][observateSequence[0]];
 
     /* induction */
     for (int t = 0; t <= T-2; t++) {
-      for (int j = 0; j < numStates; j++) {
+      for (int j = 0; j < numberOfStates; j++) {
 	fwd[j][t+1] = 0;
-	for (int i = 0; i < numStates; i++)
+	for (int i = 0; i < numberOfStates; i++)
 	  fwd[j][t+1] += (fwd[i][t] * a[i][j]);
-	fwd[j][t+1] *= b[j][o[t+1]];
+
+	fwd[j][t+1] *= b[j][observateSequence[t+1]];
       }
     }
 
     return fwd;
   }
-
+  
   /** calculation of  Backward-Variables b(i,t) for state i at time
       t for output sequence O with the current HMM parameters
       @param o the output sequence O
       @return an array b(i,t) over states and times, containing
               the Backward-Variables. 
   */
-  public double[][] backwardProc(int[] o) {
-    int T = o.length;
-    double[][] bwd = new double[numStates][T];
+  public double[][] backwardProc(int[] observateSequence) {
+    int T = observateSequence.length;
+    double[] pi = this.initialStateProb;
+    double[][] a = this.transitionProb;
+    double[][] b = this.emissionProb;
+    double[][] bwd = new double[numberOfStates][T];
         
     /* initialization (time 0) */
-    for (int i = 0; i < numStates; i++)
+    for (int i = 0; i < numberOfStates; i++)
       bwd[i][T-1] = 1;
 
     /* induction */
     for (int t = T - 2; t >= 0; t--) {
-      for (int i = 0; i < numStates; i++) {
+      for (int i = 0; i < numberOfStates; i++) {
 	bwd[i][t] = 0;
-	for (int j = 0; j < numStates; j++)
-	  bwd[i][t] += (bwd[j][t+1] * a[i][j] * b[j][o[t+1]]);
+	for (int j = 0; j < numberOfStates; j++)
+	  bwd[i][t] += (bwd[j][t+1] * a[i][j] * b[j][observateSequence[t+1]]);
       }
     }
 
@@ -155,13 +159,13 @@ public class HMM {
   public double p(int t, int i, int j, int[] o, double[][] fwd, double[][] bwd) {
     double num;
     if (t == o.length - 1)
-      num = fwd[i][t] * a[i][j];
+      num = fwd[i][t] * this.transitionProb[i][j];
     else
-      num = fwd[i][t] * a[i][j] * b[j][o[t+1]] * bwd[j][t+1];
+      num = fwd[i][t] * this.transitionProb[i][j] * this.emissionProb[j][o[t+1]] * bwd[j][t+1];
 
     double denom = 0;
 
-    for (int k = 0; k < numStates; k++)
+    for (int k = 0; k < numberOfStates; k++)
       denom += (fwd[k][t] * bwd[k][t]);
 
     return divide(num, denom);
@@ -172,43 +176,63 @@ public class HMM {
     double num = fwd[i][t] * bwd[i][t];
     double denom = 0;
 
-    for (int j = 0; j < numStates; j++)
+    for (int j = 0; j < numberOfStates; j++)
       denom += fwd[j][t] * bwd[j][t];
 
     return divide(num, denom);
   }
 
-  /** prints all the parameters of an HMM */
   public void print() {
     DecimalFormat fmt = new DecimalFormat();
     fmt.setMinimumFractionDigits(5);
     fmt.setMaximumFractionDigits(5);
     
-    for (int i = 0; i < numStates; i++)
-      System.out.println("pi(" + i + ") = " + fmt.format(pi[i]));
+    for (int i = 0; i < numberOfStates; i++)
+      System.out.println("pi(" + i + ") = " + fmt.format(this.initialStateProb[i]));
     System.out.println();
 
-    for (int i = 0; i < numStates; i++) {
-      for (int j = 0; j < numStates; j++)
+    for (int i = 0; i < numberOfStates; i++) {
+      for (int j = 0; j < numberOfStates; j++)
 	System.out.print("a(" + i + "," + j + ") = " + 
-			 fmt.format(a[i][j]) + "  ");
+			 fmt.format(this.transitionProb[i][j]) + "  ");
       System.out.println();
     }
 
     System.out.println();
-    for (int i = 0; i < numStates; i++) {
-      for (int k = 0; k < sigmaSize; k++)
+    for (int i = 0; i < numberOfStates; i++) {
+      for (int k = 0; k < emisionSize; k++)
 	System.out.print("b(" + i + "," + k + ") = " + 
-			 fmt.format(b[i][k]) + "  ");
+			 fmt.format(this.emissionProb[i][k]) + "  ");
       System.out.println();
     }
   }
+  
+  public void initUnfairPokerModel() {
+    initialStateProb[0] = 1.0;
+    initialStateProb[1] = 0.0;
 
+    this.transitionProb[0][0] = 0.95;
+    this.transitionProb[0][1] = 0.05;
+    this.transitionProb[1][1] = 0.9;
+    this.transitionProb[1][0] = 0.1;
+    
+    for(int i = 0; i < 6; i++) 
+        this.emissionProb[0][i] = 1.0/6.0;
+    
+    for(int i = 0; i < 5; i++) 
+        this.emissionProb[1][i] = 1.0/10.0;
+
+    this.emissionProb[1][5] = 1.0/2.0;
+  }
   /** divides two doubles. 0 / 0 = 0! */
   public double divide(double n, double d) {
     if (n == 0)
       return 0;
     else
       return n / d;
+  }
+
+  private void calculateLikehood() {
+    
   }
 }
