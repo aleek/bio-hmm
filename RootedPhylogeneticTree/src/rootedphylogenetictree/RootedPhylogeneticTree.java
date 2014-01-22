@@ -31,7 +31,7 @@ public class RootedPhylogeneticTree {
         
         String fileName = "test2.txt";
         try {
-            BufferedReader br = new BufferedReader(new FileReader("D:\\netbeans projects\\RootedPhylogeneticTree\\" + fileName));
+            BufferedReader br = new BufferedReader(new FileReader("/home/aleek/src/bio/RootedPhylogeneticTree/" + fileName));
             CharSequence sequenceToObserver;
             String sequenceAsString = br.readLine();
             sequenceToObserver = sequenceAsString.subSequence(0, sequenceAsString.length());

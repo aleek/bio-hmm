@@ -18,10 +18,13 @@ public class CustomTreeNode implements TreeNode, Cloneable{
 
     private String nodeName;
     private double nodeDistance;
-    private int depthLevel;
+    public int depthLevel = 0;
     
     private Vector childVec = new Vector();
     private CustomTreeNode parentNode;
+
+	// for painting
+	public int painting_shift;
     
     
     public CustomTreeNode(double distance) {

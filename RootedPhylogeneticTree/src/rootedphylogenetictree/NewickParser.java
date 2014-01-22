@@ -16,6 +16,7 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import sun.java2d.loops.CustomComponent;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,6 +27,7 @@ public class NewickParser {
     private String treeData;
     private CustomTreeNode root;
     private String treeView; 
+	public ArrayList<StringBuffer> painted_tree = new ArrayList<StringBuffer>();
            
     
     public NewickParser(String sequenceTree) {
@@ -39,6 +41,8 @@ public class NewickParser {
     
     public String showTree() {
         StringBuffer buffer = new StringBuffer();
+
+		paintTree(root);
 
         getStructure(root, buffer, 1);
         return buffer.toString();
@@ -56,6 +60,87 @@ public class NewickParser {
         for(int i = 0; i < node.getChildCount(); i++)
             getStructure(node.getChildAt(i), buffer, level+1);
     }
+
+	public int getTreeDepth( CustomTreeNode node, int depth ) {
+
+		int[] depth_arr = new int[node.getChildCount()];
+		int max=0;
+		int children_cnt = node.getChildCount();
+
+
+		depth++;
+		node.setDepthLevel( depth );
+
+		if( children_cnt == 0 ) {
+			return depth;
+		}
+
+		// get depths from all children
+		for( int i=0; i< children_cnt; ++i ) {
+			depth_arr[i] = getTreeDepth( node.getChildAt(i), depth );
+		}
+
+		// get max from the array
+		for( int i=0; i<children_cnt; ++i ) {
+			if( depth_arr[i] > max ) {
+				max = depth_arr[i];
+			}
+		}
+		return depth + max;
+	}
+
+	public void paintTree( CustomTreeNode node ) {
+		int tree_depth = getTreeDepth( node, 0 );
+
+		for( int i =0; i<tree_depth; ++i ) {
+			painted_tree.add( new StringBuffer() );
+		}
+		if( painted_tree == null ) {
+			System.out.println("smuteczek" );
+		}
+
+		paintElement( node );
+
+		for( int i=0; i< tree_depth; ++i ) {
+			System.out.println( painted_tree.get(i) );
+		}
+	}
+
+	public void paintElement( CustomTreeNode node ) {
+		//first, paint its children
+		int children_cnt = node.getChildCount();
+		int depth = node.depthLevel;
+		String name;
+
+		if( node.getNodeName() == null ) {
+			name = "+";
+		}
+		else
+		{
+			name = node.getNodeName();
+		}
+
+		if( children_cnt == 0 ) {
+			painted_tree.get(depth).append( " " );
+			painted_tree.get(depth).append( name );
+			return;
+		}
+		for( int i=0; i< children_cnt; ++i ) {
+			paintElement( node.getChildAt(i) );
+		}
+
+		int child_shift = node.getChildAt(0).painting_shift;
+		int my_shift = child_shift + children_cnt*2;
+		int cur_shift = painted_tree.get(depth).length();
+		int shift = (my_shift - cur_shift) <0 ? 0 : my_shift - cur_shift;
+
+		for( int i = 0; i< shift; ++i ) {
+			painted_tree.get(depth).append( " " );
+		}
+		painted_tree.get(depth).append( name );
+	}
+
+
     
     public CustomTreeNode parseStringToTreeStructure() {
         int x = treeData.lastIndexOf(':');
