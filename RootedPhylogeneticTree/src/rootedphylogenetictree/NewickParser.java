@@ -121,17 +121,19 @@ public class NewickParser {
 		}
 
 		if( children_cnt == 0 ) {
-			node.painting_shift = painted_tree.get(depth).length()+1;
+			int additional_shift = 0;
+			node.painting_shift = painted_tree.get(depth).length();
 			if( painted_tree.get(depth+1) != null ) {
 				int a = painted_tree.get(depth+1).length();
 				if( a > node.painting_shift ) {
-					node.painting_shift = a;
+					additional_shift = a - node.painting_shift;
 				}
 			}
-			for( int i=0; i<node.painting_shift; ++i ) {
+			node.painting_shift += additional_shift;
+			for( int i=0; i<additional_shift; ++i ) {
 				painted_tree.get(depth).append( " " );
 			}
-			painted_tree.get(depth).append( name );
+			painted_tree.get(depth).append( " " + name );
 			return;
 		}
 		for( int i=0; i< children_cnt; ++i ) {
@@ -160,7 +162,7 @@ public class NewickParser {
 		for( int i = 0; i< shift; ++i ) {
 			painted_tree.get(depth).append( " " );
 		}
-		painted_tree.get(depth).append( name );
+		painted_tree.get(depth).append( "/ " + name + " \\" );
 		node.painting_shift = shift;
 	}
 
