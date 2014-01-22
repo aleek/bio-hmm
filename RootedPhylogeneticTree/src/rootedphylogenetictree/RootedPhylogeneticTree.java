@@ -29,7 +29,7 @@ public class RootedPhylogeneticTree {
      */
     public static void main(String[] args)  {
         
-        String fileName = "test2.txt";
+        String fileName = "drzewo2";
         try {
             BufferedReader br = new BufferedReader(new FileReader("/home/aleek/src/bio/RootedPhylogeneticTree/" + fileName));
             CharSequence sequenceToObserver;

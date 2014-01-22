@@ -121,23 +121,47 @@ public class NewickParser {
 		}
 
 		if( children_cnt == 0 ) {
-			painted_tree.get(depth).append( " " );
+			node.painting_shift = painted_tree.get(depth).length()+1;
+			if( painted_tree.get(depth+1) != null ) {
+				int a = painted_tree.get(depth+1).length();
+				if( a > node.painting_shift ) {
+					node.painting_shift = a;
+				}
+			}
+			for( int i=0; i<node.painting_shift; ++i ) {
+				painted_tree.get(depth).append( " " );
+			}
 			painted_tree.get(depth).append( name );
 			return;
 		}
 		for( int i=0; i< children_cnt; ++i ) {
-			paintElement( node.getChildAt(i) );
+			paintElement( node.getChildAt (i) );
+		}
+		
+		CustomTreeNode last_child = node.getChildAt(children_cnt-1);
+		if( last_child == null ) {
+			System.out.println("AAAAAAAA");
 		}
 
-		int child_shift = node.getChildAt(0).painting_shift;
-		int my_shift = child_shift + children_cnt*2;
+		int first_child_shift = node.getChildAt(0).painting_shift;
+		
+		int last_child_shift = last_child.painting_shift;
+		if(last_child.getNodeName() == null ) {
+			last_child_shift++;
+		} else {
+			last_child_shift += last_child.getNodeName().length();
+		}
+
+		int my_shift = first_child_shift + (last_child_shift - first_child_shift)/2 + (name.length())/2;
 		int cur_shift = painted_tree.get(depth).length();
 		int shift = (my_shift - cur_shift) <0 ? 0 : my_shift - cur_shift;
 
+		painted_tree.get(depth).append( " " );
 		for( int i = 0; i< shift; ++i ) {
 			painted_tree.get(depth).append( " " );
 		}
 		painted_tree.get(depth).append( name );
+		node.painting_shift = shift;
 	}
 
 
