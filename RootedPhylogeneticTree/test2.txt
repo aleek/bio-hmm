@@ -1,1 +1,1 @@
-((a:1,b:2):3,d:4):5
+(((yuioyuio:6,qwerty:4):1,(aaaaaa:5,hjklhjkl:4):2):3,(aaaa:4,fdsa:5):4):5

@@ -29,9 +29,9 @@ public class RootedPhylogeneticTree {
      */
     public static void main(String[] args)  {
         
-        String fileName = "drzewo2";
+        String fileName = "test2.txt";
         try {
-            BufferedReader br = new BufferedReader(new FileReader("/home/aleek/src/bio/RootedPhylogeneticTree/" + fileName));
+            BufferedReader br = new BufferedReader(new FileReader("/home/aleek/src/bio-hmm/RootedPhylogeneticTree/" + fileName));
             CharSequence sequenceToObserver;
             String sequenceAsString = br.readLine();
             sequenceToObserver = sequenceAsString.subSequence(0, sequenceAsString.length());
