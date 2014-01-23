@@ -40,15 +40,30 @@ public class Cluster implements Comparable<Cluster>{
     }
     
     private void searchForLeaves(CustomTreeNode node) {
+		if( node.isLeaf() ) {
+			String name = node.getNodeName() == null ? "null" : node.getNodeName();
+			System.out.println( "Checking leaf " + name );
+			if( !leaves.contains(node ) ) {
+			System.out.println( "Adding " + name );
+            	leaves.add(node);
+			}
+		}
+		else
+		{
+        	for(int i = 0; i < node.getChildCount(); i++) {
+        	    searchForLeaves(node.getChildAt(i));
+        	}
+		}
 
-        for(int i = 0; i < node.getChildCount(); i++) {
-            searchForLeaves(node.getChildAt(i));
-        }            
 
-        if(node.isLeaf() && !leaves.contains(node)) 
-        { 
-            leaves.add(node);
-        }
+        //for(int i = 0; i < node.getChildCount(); i++) {
+//            searchForLeaves(node.getChildAt(i));
+  //      }            
+//
+    //    if(node.isLeaf() && !leaves.contains(node)) 
+//        { 
+  //          leaves.add(node);
+ //       }
 
     }
     

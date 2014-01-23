@@ -95,14 +95,15 @@ public class CustomTreeNode implements TreeNode, Cloneable{
 
     @Override
     public boolean equals(Object obj) {
-        CustomTreeNode node = (CustomTreeNode) obj;
+		return ( System.identityHashCode(this) == System.identityHashCode(obj) );
+    /*    CustomTreeNode node = (CustomTreeNode) obj;
         if(this.getNodeName().equals(node.getNodeName())) {
             return true;
         } else if(this.getNodeDistance() == node.getNodeDistance()) {
             return true;
         } else {
             return false;
-        }
+        }*/
     }
 
     @Override

@@ -44,6 +44,8 @@ public class RootedTreeTools {
     private void searchTreeForAllClusters(CustomTreeNode node) {
         
             Cluster c = new Cluster(node);
+			String name = node.getNodeName() == null ? "null" : node.getNodeName();
+			System.out.println( "Searching for leaves for node " + name );
             c.getAllLeavesOfNode(node);
             addClusterToFamily(c);
         
