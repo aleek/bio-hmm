@@ -157,12 +157,18 @@ public class NewickParser {
 		int my_shift = first_child_shift + (last_child_shift - first_child_shift)/2 + (name.length())/2;
 		int cur_shift = painted_tree.get(depth).length();
 		int shift = (my_shift - cur_shift) <0 ? 0 : my_shift - cur_shift;
+		shift-=2;
 
 		painted_tree.get(depth).append( " " );
 		for( int i = 0; i< shift; ++i ) {
 			painted_tree.get(depth).append( " " );
 		}
 		painted_tree.get(depth).append( "/ " + name + " \\" );
+
+		int additional_spaces = last_child_shift - painted_tree.get(depth).length();
+		for( int i = 0; i< additional_spaces; ++i ) {
+			painted_tree.get(depth).append( " " );
+		}
 		node.painting_shift = shift;
 	}
 
